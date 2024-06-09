@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"rahuljsaliaan.com/go-gather/pkg/modals"
 )
 
 func main() {
@@ -15,5 +16,6 @@ func main() {
 }
 
 func getEvents(context *gin.Context) {
-	context.JSON(http.StatusOK, gin.H{"message": "Hello"})
+	events := modals.GetAllEvents()
+	context.JSON(http.StatusOK, events)
 }
