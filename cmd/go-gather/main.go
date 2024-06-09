@@ -1,8 +1,8 @@
 package main
 
 import (
-	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"rahuljsaliaan.com/go-gather/internal/db"
@@ -14,8 +14,9 @@ func main() {
 
 	server := gin.Default()
 
-	server.POST("/events", createEvent)
 	server.GET("/events", getEvents)
+	server.GET("/events/:id", getEventByID)
+	server.POST("/events", createEvent)
 
 	server.Run(":8000")
 }
@@ -23,18 +24,33 @@ func main() {
 func getEvents(context *gin.Context) {
 	events, err := models.GetAllEvents()
 	if err != nil {
-		context.JSON(http.StatusInternalServerError, gin.H{"message": "Could not fetch events. Try again later."})
+		context.JSON(http.StatusInternalServerError, gin.H{"message": "Could not fetch events. Try again later"})
 		return
 	}
 
 	context.JSON(http.StatusOK, events)
 }
 
+func getEventByID(context *gin.Context) {
+	eventID, err := strconv.ParseInt(context.Param("id"), 10, 64)
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse event id"})
+		return
+	}
+
+	event, err := models.GetEventByID(eventID)
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Could not find event"})
+		return
+	}
+
+	context.JSON(http.StatusOK, event)
+}
+
 func createEvent(context *gin.Context) {
 	var event models.Event
 
 	if err := context.ShouldBindJSON(&event); err != nil {
-		log.Printf("Error binding JSON: %v", err)
 		context.JSON(http.StatusBadRequest, gin.H{"message": "Invalid request format"})
 		return
 	}
@@ -43,7 +59,7 @@ func createEvent(context *gin.Context) {
 	event.UserId = 1
 
 	if err := event.Save(); err != nil {
-		context.JSON(http.StatusInternalServerError, gin.H{"message": "Could not create event. Try again later."})
+		context.JSON(http.StatusInternalServerError, gin.H{"message": "Could not create event. Try again later"})
 		return
 	}
 
