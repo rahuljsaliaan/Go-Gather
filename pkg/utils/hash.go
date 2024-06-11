@@ -2,7 +2,7 @@ package utils
 
 import (
 	"golang.org/x/crypto/bcrypt"
-	"rahuljsaliaan.com/go-gather/config"
+	"rahuljsaliaan.com/go-gather/internal/config"
 )
 
 func HashPassword(password string) (string, error) {
