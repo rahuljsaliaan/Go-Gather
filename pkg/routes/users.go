@@ -7,6 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"rahuljsaliaan.com/go-gather/pkg/models"
+	"rahuljsaliaan.com/go-gather/pkg/utils"
 )
 
 func signup(context *gin.Context) {
@@ -44,5 +45,12 @@ func login(context *gin.Context) {
 		return
 	}
 
-	context.JSON(http.StatusOK, gin.H{"message": "Logged in successfully"})
+	token, err := utils.GenerateToken(user.Email, user.ID)
+
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": "Could not login"})
+		return
+	}
+
+	context.JSON(http.StatusOK, gin.H{"message": "Logged in successfully", "token": token})
 }

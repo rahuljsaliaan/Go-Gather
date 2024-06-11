@@ -55,3 +55,6 @@ _testmain.go
 
 # DataBase
 api.db
+
+# Environment File
+*.env
