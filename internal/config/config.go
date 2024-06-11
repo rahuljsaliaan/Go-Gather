@@ -2,16 +2,15 @@ package config
 
 import (
 	"log"
-	"time"
 
 	"github.com/joho/godotenv"
 	"github.com/kelseyhightower/envconfig"
 )
 
 type env struct {
-	JwtSecret       []byte        `envconfig:"JWT_SECRET"`
-	JwtSecretExpire time.Duration `envconfig:"JWT_SECRET_EXPIRE"`
-	BcryptCost      int           `envconfig:"BCRYPT_COST"`
+	JwtSecret   []byte `envconfig:"JWT_SECRET"`
+	JwtExpHours int    `envconfig:"JWT_EXP_HOURS"`
+	BcryptCost  int    `envconfig:"BCRYPT_COST"`
 }
 
 var Env env
