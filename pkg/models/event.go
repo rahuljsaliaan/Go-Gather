@@ -12,10 +12,10 @@ type Event struct {
 	Description string    `binding:"required"`
 	Location    string    `binding:"required"`
 	DateTime    time.Time `binding:"required"`
-	UserId      uint      // positive integer
+	UserID      uint      // positive integer
 }
 
-func (e *Event) Save() error {
+func (event *Event) Save() error {
 	query := `
 		INSERT INTO events(name, description, location, datetime, user_id)
 		VALUES (?, ?, ?, ?, ?)
@@ -28,7 +28,7 @@ func (e *Event) Save() error {
 
 	defer stmt.Close()
 
-	result, err := stmt.Exec(e.Name, e.Description, e.Location, e.DateTime, e.UserId)
+	result, err := stmt.Exec(event.Name, event.Description, event.Location, event.DateTime, event.UserID)
 	if err != nil {
 		return err
 	}
@@ -38,7 +38,7 @@ func (e *Event) Save() error {
 		return err
 	}
 
-	e.ID = id
+	event.ID = id
 
 	return nil
 }
@@ -56,7 +56,7 @@ func GetAllEvents() ([]Event, error) {
 
 	for rows.Next() {
 		var event Event
-		err = rows.Scan(&event.ID, &event.Name, &event.Description, &event.Location, &event.Location, &event.UserId)
+		err = rows.Scan(&event.ID, &event.Name, &event.Description, &event.Location, &event.Location, &event.UserID)
 
 		if err != nil {
 			return nil, err
@@ -72,7 +72,7 @@ func GetEventByID(id int64) (*Event, error) {
 	row := db.DB.QueryRow(query, id)
 
 	var event Event
-	err := row.Scan(&event.ID, &event.Name, &event.Description, &event.Location, &event.DateTime, &event.UserId)
+	err := row.Scan(&event.ID, &event.Name, &event.Description, &event.Location, &event.DateTime, &event.UserID)
 
 	if err != nil {
 		return nil, err

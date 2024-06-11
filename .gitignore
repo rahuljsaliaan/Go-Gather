@@ -54,7 +54,7 @@ _testmain.go
 *.prof
 
 # DataBase
-api.db
+*.db
 
 # Environment File
 *.env

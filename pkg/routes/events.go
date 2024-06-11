@@ -35,6 +35,13 @@ func getEventByID(context *gin.Context) {
 }
 
 func createEvent(context *gin.Context) {
+	userID := context.GetInt64("userID")
+
+	if userID == 0 {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": "Could not create event. Try again later"})
+		return
+	}
+
 	var event models.Event
 
 	if err := context.ShouldBindJSON(&event); err != nil {
@@ -42,8 +49,7 @@ func createEvent(context *gin.Context) {
 		return
 	}
 
-	event.ID = 1
-	event.UserId = 1
+	event.UserID = uint(userID)
 
 	if err := event.Save(); err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"message": "Could not create event. Try again later"})

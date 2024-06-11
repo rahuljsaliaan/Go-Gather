@@ -44,7 +44,10 @@ func ValidateToken(token string) (int64, error) {
 	}
 
 	// email := claims["email"].(string)
-	userID := int64(claims["userId"].(float64))
+	userID, ok := claims["userID"].(float64)
+	if !ok {
+		return 0, errors.New("userID claim is not a float64 or is missing")
+	}
 
-	return userID, nil
+	return int64(userID), nil
 }

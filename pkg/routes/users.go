@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"rahuljsaliaan.com/go-gather/internal/config"
 	"rahuljsaliaan.com/go-gather/pkg/models"
 	"rahuljsaliaan.com/go-gather/pkg/utils"
 )
@@ -51,5 +52,7 @@ func login(context *gin.Context) {
 		return
 	}
 
-	context.JSON(http.StatusOK, gin.H{"message": "Logged in successfully", "token": token})
+	context.SetCookie("token", token, config.Env.JwtExpHours*3600, "/", "", false, true)
+
+	context.JSON(http.StatusOK, gin.H{"message": "Logged in successfully"})
 }
