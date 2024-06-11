@@ -1,6 +1,8 @@
 package models
 
 import (
+	"errors"
+
 	"rahuljsaliaan.com/go-gather/internal/db"
 	"rahuljsaliaan.com/go-gather/pkg/utils"
 )
@@ -44,6 +46,26 @@ func (user User) Save() error {
 	}
 
 	user.ID = userID
+
+	return nil
+}
+
+func (user User) ValidateCredentials() error {
+	query := "SELECT password FROM users WHERE email = ?"
+	row := db.DB.QueryRow(query, user.Email)
+
+	var retrievedPassword string
+	err := row.Scan(&retrievedPassword)
+
+	if err != nil {
+		return err
+	}
+
+	isPasswordValid := utils.CheckPasswordHash(retrievedPassword, user.Password)
+
+	if !isPasswordValid {
+		return errors.New("credentials invalid")
+	}
 
 	return nil
 }
