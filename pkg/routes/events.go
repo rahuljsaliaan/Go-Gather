@@ -94,6 +94,7 @@ func updateEvent(context *gin.Context) {
 	}
 
 	updatedEvent.ID = eventID
+	updatedEvent.UserID = uint(userID)
 
 	err = updatedEvent.Update()
 
