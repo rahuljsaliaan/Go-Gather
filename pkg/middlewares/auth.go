@@ -10,7 +10,7 @@ import (
 func Authenticate(context *gin.Context) {
 	cookie, err := context.Request.Cookie("token")
 	if err != nil {
-		context.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "No token cookie found"})
+		context.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Not authorized"})
 		return
 	}
 
@@ -19,7 +19,7 @@ func Authenticate(context *gin.Context) {
 	userID, err := utils.ValidateToken(token)
 
 	if err != nil {
-		context.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": utils.CapitalizeFirstLetter(err.Error())})
+		context.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Not authorized"})
 		return
 	}
 
