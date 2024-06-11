@@ -1,6 +1,9 @@
 package models
 
-import "rahuljsaliaan.com/go-gather/internal/db"
+import (
+	"rahuljsaliaan.com/go-gather/internal/db"
+	"rahuljsaliaan.com/go-gather/pkg/utils"
+)
 
 type User struct {
 	ID       int64
@@ -22,7 +25,13 @@ func (user User) Save() error {
 
 	defer stmt.Close()
 
-	result, err := stmt.Exec(user.Email, user.Password)
+	hashedPassword, err := utils.HashPassword(user.Password)
+
+	if err != nil {
+		return err
+	}
+
+	result, err := stmt.Exec(user.Email, hashedPassword)
 
 	if err != nil {
 		return err
