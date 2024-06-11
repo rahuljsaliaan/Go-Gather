@@ -3,7 +3,6 @@ package routes
 import (
 	"log"
 	"net/http"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 	"rahuljsaliaan.com/go-gather/pkg/models"
@@ -40,7 +39,7 @@ func login(context *gin.Context) {
 	err := user.ValidateCredentials()
 
 	if err != nil {
-		formattedMessage := strings.ToUpper(string(err.Error()[0])) + string(err.Error()[1:])
+		formattedMessage := utils.CapitalizeFirstLetter(err.Error())
 		context.JSON(http.StatusUnauthorized, gin.H{"message": formattedMessage})
 		return
 	}
