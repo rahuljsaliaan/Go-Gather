@@ -15,7 +15,7 @@ type Event struct {
 	UserId      uint      // positive integer
 }
 
-func (e Event) Save() error {
+func (e *Event) Save() error {
 	query := `
 		INSERT INTO events(name, description, location, datetime, user_id)
 		VALUES (?, ?, ?, ?, ?)
