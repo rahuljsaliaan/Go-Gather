@@ -2,7 +2,7 @@
 
 ![Render Badge](https://img.shields.io/badge/deployed%20on-render-brightgreen)
 
-Welcome to Go Gather, your ultimate API platform for discovering and registering for exciting events led by experienced hosts. Whether you’re seeking thrilling adventures or peaceful gatherings, Go Gather has a variety of options to satisfy every explorer's taste.
+Go Gather is an API platform for discovering and registering for exciting events led by experienced hosts. Whether you’re seeking thrilling adventures or peaceful gatherings, Go Gather has a variety of options to satisfy every explorer's taste.
 
 ## API Endpoint
 
