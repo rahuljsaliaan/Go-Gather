@@ -6,7 +6,7 @@ Go Gather is an API platform for discovering and registering for exciting events
 
 ## API Endpoint
 
-Access the Go Gather API at: [under_construction]()
+Access the Go Gather API at: [https://go-gather.onrender.com/](https://go-gather.onrender.com/)
 
 ## Features at a Glance
 
