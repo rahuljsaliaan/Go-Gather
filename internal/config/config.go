@@ -7,6 +7,7 @@ import (
 )
 
 type env struct {
+	Port        int    `envconfig:"PORT"`
 	JwtSecret   []byte `envconfig:"JWT_SECRET"`
 	JwtExpHours int    `envconfig:"JWT_EXP_HOURS"`
 	BcryptCost  int    `envconfig:"BCRYPT_COST"`
