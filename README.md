@@ -18,6 +18,18 @@ Access the Go Gather API at: [under_construction]()
 
 - **User Authentication:** Secure login and registration to personalize your experience.
 
+## Technologies Used
+
+- **Go:** The backbone of our server, providing a robust and efficient backend.
+  
+- **Gin:** Streamlining the development of our web application with its minimalistic and high-performance framework.
+
+- **SQLite:** A lightweight and reliable database solution to manage our event data.
+
+- **JWT:** Ensuring secure and seamless authentication for users.
+
+- **godotenv:** For managing environment variables in a simple and convenient way.
+
 ## Deployment
 
 Go Gather is proudly hosted on Render, ensuring continuous deployment to keep our platform up-to-date with the latest features and improvements.
