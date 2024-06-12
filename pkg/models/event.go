@@ -1,6 +1,8 @@
 package models
 
 import (
+	"errors"
+	"fmt"
 	"time"
 
 	"rahuljsaliaan.com/go-gather/internal/db"
@@ -123,6 +125,33 @@ func (event Event) Register(userID int64) error {
 	defer stmt.Close()
 
 	_, err = stmt.Exec(event.ID, userID)
+
+	return err
+}
+
+func (event Event) CancelRegistration(userID int64) error {
+	fmt.Println(event.ID, userID)
+	query := "DELETE FROM registrations WHERE event_id = ? and user_id = ?"
+	stmt, err := db.DB.Prepare(query)
+	if err != nil {
+		return err
+	}
+
+	defer stmt.Close()
+
+	result, err := stmt.Exec(event.ID, userID)
+	if err != nil {
+		return err
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return err
+	}
+
+	if rowsAffected == 0 {
+		return errors.New("no rows were deleted")
+	}
 
 	return err
 }
