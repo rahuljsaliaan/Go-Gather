@@ -28,7 +28,7 @@ Access the Go Gather API at: [https://go-gather.onrender.com/](https://go-gather
 
 - **JWT:** Ensuring secure and seamless authentication for users.
 
-- **godotenv:** For managing environment variables in a simple and convenient way.
+- **envconfig:** For managing environment variables in a simple and convenient way.
 
 ## Deployment
 
